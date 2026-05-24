@@ -6,39 +6,8 @@
 (function () {
   'use strict';
 
-  /* ============================================================
-     1. CURSOR CUSTOMIZADO — ANEL COM LERP
-     ============================================================ */
-  const cursorRing = document.getElementById('cursor-ring');
+  /* Cursor padrão do browser — sem customização */
   const isTouch = window.matchMedia('(pointer: coarse)').matches;
-
-  if (!isTouch && cursorRing) {
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
-    const LERP = 0.12;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    const interactiveSelectors = 'a, button, .btn, .faq-question, .pain-card, .volume-card, .bonus-card, .testimonial-card';
-
-    document.querySelectorAll(interactiveSelectors).forEach(el => {
-      el.addEventListener('mouseenter', () => cursorRing.classList.add('cursor-hover'));
-      el.addEventListener('mouseleave', () => cursorRing.classList.remove('cursor-hover'));
-    });
-
-    function animateCursor() {
-      ringX += (mouseX - ringX) * LERP;
-      ringY += (mouseY - ringY) * LERP;
-      cursorRing.style.left = ringX + 'px';
-      cursorRing.style.top = ringY + 'px';
-      requestAnimationFrame(animateCursor);
-    }
-
-    animateCursor();
-  }
 
   /* ============================================================
      2. SCROLL PROGRESS BAR
@@ -244,23 +213,5 @@
     });
   });
 
-  /* ============================================================
-     8. DELEGAÇÃO DE EVENTOS PARA CURSOR EM NOVOS ELEMENTOS
-     ============================================================ */
-  if (!isTouch && cursorRing) {
-    document.addEventListener('mouseover', (e) => {
-      const el = e.target.closest('a, button, .btn');
-      if (el) {
-        cursorRing.classList.add('cursor-hover');
-      }
-    });
-
-    document.addEventListener('mouseout', (e) => {
-      const el = e.target.closest('a, button, .btn');
-      if (el) {
-        cursorRing.classList.remove('cursor-hover');
-      }
-    });
-  }
 
 })();
